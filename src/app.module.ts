@@ -8,6 +8,7 @@ import * as process from 'process';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { configuration } from "@utils/config";
 import { SeedModule } from "./seed/seed.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
     imports: [
@@ -16,7 +17,8 @@ import { SeedModule } from "./seed/seed.module";
             envFilePath: join(process.cwd(), '.env')
         }),
         TypeOrmModule.forRoot(configuration.getTypeOrmConfig()),
-        SeedModule
+        SeedModule,
+        AuthModule
     ],
     controllers: [],
     providers: []
