@@ -1,21 +1,23 @@
 import {
-  BaseEntity,
-  CreateDateColumn,
-  DeleteDateColumn,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
+    BaseEntity,
+    CreateDateColumn,
+    DeleteDateColumn,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
 } from 'typeorm';
 
 export abstract class GeneralEntity extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
 
-  @CreateDateColumn({ name: 'createdAt' })
-  createdAt: Date;
+    @PrimaryGeneratedColumn()
+        id: number;
 
-  @UpdateDateColumn({ name: 'updatedAt' })
-  updatedAt: Date;
+    @CreateDateColumn({ name: 'createdAt' })
+        createdAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt' })
-  deletedAt: Date;
+    @UpdateDateColumn({ name: 'updatedAt' })
+        updatedAt: Date;
+
+    @DeleteDateColumn({ name: 'deletedAt' })
+        deletedAt: Date;
+
 }
