@@ -19,7 +19,8 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@utils/*": ["./src/utils/*"],
-      "@dec/*": ["./src/decorators/*"]
+      "@dec/*": ["./src/decorators/*"],
+      "@user/*": ["./src/user/*"]
     }
   }
 }
