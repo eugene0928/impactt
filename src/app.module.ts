@@ -6,6 +6,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { configuration } from "@utils/config";
 import { SeedModule } from "./seed/seed.module";
 import { AuthModule } from "./auth/auth.module";
+import { RoomModule } from "./room/room.module";
 
 @Module({
     imports: [
@@ -15,7 +16,8 @@ import { AuthModule } from "./auth/auth.module";
         }),
         TypeOrmModule.forRoot(configuration.getTypeOrmConfig()),
         SeedModule,
-        AuthModule
+        AuthModule,
+        RoomModule
     ],
     controllers: [],
     providers: []
