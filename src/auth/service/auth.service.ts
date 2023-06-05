@@ -20,7 +20,7 @@ export class AuthService {
         if (!user) {
 
             return {
-                status: HttpStatus.BAD_REQUEST,
+                status: HttpStatus.NOT_FOUND,
                 data: null,
                 msg: 'User is not found'
             };
@@ -32,7 +32,7 @@ export class AuthService {
             isAdmin: user.isAdmin
         });
 
-        return { status: 200, data: TOKEN, msg: 'Successfully logged in' };
+        return { status: HttpStatus.OK, data: TOKEN, msg: 'Successfully logged in' };
     
     }
 
