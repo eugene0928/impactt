@@ -22,7 +22,7 @@ export class AuthService {
             return {
                 status: HttpStatus.NOT_FOUND,
                 data: null,
-                msg: 'User is not found'
+                message: 'User is not found'
             };
         
         }
@@ -32,7 +32,7 @@ export class AuthService {
             isAdmin: user.isAdmin
         });
 
-        return { status: HttpStatus.OK, data: TOKEN, msg: 'Successfully logged in' };
+        return { status: HttpStatus.OK, data: TOKEN, message: 'Successfully logged in' };
     
     }
 
