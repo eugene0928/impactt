@@ -1,8 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-// import { SeedModule } from './seed/seed.module';
-// import { configuration } from '@utils/config';
-// import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import * as process from 'process';
 import { TypeOrmModule } from "@nestjs/typeorm";
