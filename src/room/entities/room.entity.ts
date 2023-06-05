@@ -11,4 +11,7 @@ export class RoomEntity extends GeneralEntity {
     @Column({ type: 'enum', name: 'type', enum: ROOM_TYPES, nullable: false, default: ROOM_TYPES.TEAM })
         type: ROOM_TYPES;
 
+    @Column({ type: "int", name: 'capacity', nullable: false })
+        capacity: number;
+
 }
