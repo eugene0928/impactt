@@ -6,7 +6,7 @@ import { RoomEntity } from "../entities/room.entity";
 import { ServiceExceptions } from "@utils/exceptions/service.expection";
 import { BaseResponse } from "@utils/base.response";
 import { RoomQueryDto } from "../dto/room.query.dto";
-import { RoomRes } from "@utils/types";
+import { Room, RoomRes } from "@utils/types";
 
 @Injectable()
 export class RoomService {
@@ -39,6 +39,20 @@ export class RoomService {
         } catch (err) {
 
             return ServiceExceptions.handle(err, RoomService.name, 'getRooms');
+        
+        }
+    
+    }
+
+    async getRoomById(id: number): Promise<BaseResponse<Room>> {
+
+        try {
+
+            return await this.roomRepository.getRoomById(id);
+        
+        } catch (err) {
+
+            return ServiceExceptions.handle(err, RoomService.name, 'getRoomById');
         
         }
     

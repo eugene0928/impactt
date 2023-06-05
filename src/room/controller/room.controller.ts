@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Res, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, HttpStatus, Param, ParseIntPipe, Post, Query, Res, UseGuards } from "@nestjs/common";
 import { Response } from 'express';
 import { RoomService } from "../service/room.service";
 import { NewRoomDto } from "../dto/new.room.dto";
@@ -32,6 +32,21 @@ export class RoomController {
     async getRooms(@Query() dto: RoomQueryDto, @Res() response: Response) {
 
         const res = await this.roomService.getRooms(dto);
+        response.status(res.status).json(res.data);
+    
+    }
+
+    @Get('/rooms/:id')
+    async getRoomById(@Param('id', ParseIntPipe) id: number, @Res() response: Response) {
+
+        const res = await this.roomService.getRoomById(id);
+        if(res.status === HttpStatus.NOT_FOUND) {
+
+            response.status(HttpStatus.NOT_FOUND).json({ error: res.message });
+            return;
+        
+        }
+
         response.status(res.status).json(res.data);
     
     }

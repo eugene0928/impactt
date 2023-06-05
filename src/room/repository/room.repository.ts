@@ -72,4 +72,33 @@ export class RoomRepository extends Repository<RoomEntity> {
     
     }
 
+    async getRoomById(id: number): Promise<BaseResponse<Room>> {
+
+        try {
+
+            const roomEntity = await this.findOneBy({ id });
+
+            if(!roomEntity) {
+
+                return { status: HttpStatus.NOT_FOUND, data: null, message: 'topilmadi' };
+            
+            }
+
+            const room: Room = {
+                id: roomEntity.id,
+                name: roomEntity.name,
+                type: ROOM_LABEL.get(roomEntity.type),
+                capacity: roomEntity.capacity
+            };
+
+            return { status: HttpStatus.OK, data: room, message: 'OK' };
+
+        } catch (err) {
+
+            return DbExceptions.handle(err);
+        
+        }
+    
+    }
+
 }
