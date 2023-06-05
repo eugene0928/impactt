@@ -16,7 +16,7 @@ export class RoomController {
 
         const res = await this.roomService.createRoom(dto);
 
-        if(res.status == 201) {
+        if(res.status == HttpStatus.CREATED) {
 
             response.status(res.status).json(res.data);
         
