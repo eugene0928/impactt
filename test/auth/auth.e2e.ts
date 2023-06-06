@@ -37,7 +37,7 @@ export const authTests = () => {
                 .expect(200)
                 .expect(({ body }) => {
 
-                    expect(body).toEqual({ status: HttpStatus.OK, msg: expect.any(String), data: expect.any(String) });
+                    expect(body).toEqual({ status: HttpStatus.OK, message: expect.any(String), data: expect.any(String) });
                 
                 });
 
@@ -53,7 +53,7 @@ export const authTests = () => {
                 .expect(404)
                 .expect(({ body }) => {
 
-                    expect(body).toEqual({ status: HttpStatus.NOT_FOUND, msg: 'User is not found', data: null });
+                    expect(body).toEqual({ status: HttpStatus.NOT_FOUND, message: 'User is not found', data: null });
 
                 });
 
