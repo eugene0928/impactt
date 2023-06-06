@@ -58,4 +58,18 @@ export class RoomService {
     
     }
 
+    async deleteRoom(id: number): Promise<BaseResponse<null>> {
+
+        try {
+
+            return await this.roomRepository.deleteRoom(id);
+        
+        } catch (err) {
+
+            return ServiceExceptions.handle(err, RoomService.name, 'deleteRoom');
+        
+        }
+    
+    }
+
 }

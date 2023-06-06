@@ -101,4 +101,25 @@ export class RoomRepository extends Repository<RoomEntity> {
     
     }
 
+    async deleteRoom(id: number): Promise<BaseResponse<null>> {
+
+        try {
+
+            const roomEntity = await this.softDelete(id);
+            if(!roomEntity.affected) {
+
+                return { status: HttpStatus.NOT_FOUND, data: null, message: 'xona topilmadi' };
+            
+            }
+
+            return { status: HttpStatus.OK, data: null, message: "xona muvaffaqiyatli o'chirildi" };
+        
+        } catch (err) {
+
+            return DbExceptions.handle(err);
+        
+        }
+    
+    }
+
 }

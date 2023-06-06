@@ -1,4 +1,16 @@
-import { Body, Controller, Get, HttpStatus, Param, ParseIntPipe, Post, Query, Res, UseGuards } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpStatus,
+    Param,
+    ParseIntPipe,
+    Post,
+    Query,
+    Res,
+    UseGuards
+} from "@nestjs/common";
 import { Response } from 'express';
 import { RoomService } from "../service/room.service";
 import { NewRoomDto } from "../dto/new.room.dto";
@@ -12,7 +24,7 @@ export class RoomController {
 
     @UseGuards(JwtGuard)
     @Post('/rooms')
-    async login(@Body() dto: NewRoomDto, @Res() response: Response) {
+    async createRoom(@Body() dto: NewRoomDto, @Res() response: Response) {
 
         const res = await this.roomService.createRoom(dto);
 
@@ -48,6 +60,22 @@ export class RoomController {
         }
 
         response.status(res.status).json(res.data);
+    
+    }
+
+    @UseGuards(JwtGuard)
+    @Delete('/rooms/:id')
+    async deleteRoom(@Param('id', ParseIntPipe) id: number, @Res() response: Response) {
+
+        const res = await this.roomService.deleteRoom(id);
+        if(res.status === HttpStatus.NOT_FOUND) {
+
+            response.status(HttpStatus.NOT_FOUND).json({ error: res.message });
+            return;
+
+        }
+
+        response.status(res.status).json({ message: res.message });
     
     }
 
