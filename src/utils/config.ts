@@ -9,12 +9,12 @@ export const configuration = {
     getDataSourceConfig(): DataSourceOptions {
 
         return {
-            type: process.env['DB_TYPE'] as any,
+            type: 'postgres' as any,
             host: process.env['DB_HOST'],
             port: parseInt(process.env['DB_PORT']),
             username: process.env['DB_USERNAME'],
             password: process.env['DB_PASSWORD'],
-            database: process.env['DB_DATABASE'],
+            database: 'impactt',
             entities: [join(__dirname, `../**/entities/**.entity.{ts,js}`)],
             synchronize: true
         };
