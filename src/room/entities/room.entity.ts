@@ -1,6 +1,7 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
 import { GeneralEntity } from "@utils/base.entity";
 import { ROOM_TYPES } from "@utils/enums";
+import { BookingEntity } from "../../booking/entities/booking.entity";
 
 @Entity('room')
 export class RoomEntity extends GeneralEntity {
@@ -13,5 +14,8 @@ export class RoomEntity extends GeneralEntity {
 
     @Column({ type: "int", name: 'capacity', nullable: false })
         capacity: number;
+
+    @OneToMany(() => BookingEntity, (booking) => booking.room)
+        bookings: BookingEntity[];
 
 }
