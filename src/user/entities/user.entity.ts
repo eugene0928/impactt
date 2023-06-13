@@ -1,5 +1,6 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from "typeorm";
 import { GeneralEntity } from '@utils/base.entity';
+import { BookingEntity } from "../../booking/entities/booking.entity";
 
 @Entity('users')
 export class UserEntity extends GeneralEntity {
@@ -8,6 +9,9 @@ export class UserEntity extends GeneralEntity {
         name: string;
 
     @Column({ type: 'boolean', name: 'isAdmin', default: false })
-        isAdmin: boolean; 
+        isAdmin: boolean;
+
+    @OneToMany(() => BookingEntity, (booking) => booking.user)
+        bookings: BookingEntity[];
 
 }
