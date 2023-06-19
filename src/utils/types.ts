@@ -11,3 +11,8 @@ export type RoomRes = {
     page_size: number;
     results: Room[];
 }
+
+export type RoomAvailability = {
+    start: string;
+    end: string;
+}
