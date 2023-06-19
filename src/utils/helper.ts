@@ -57,3 +57,9 @@ export function getStatusCode(err) {
     return err.code > 511 ? HttpStatus.INTERNAL_SERVER_ERROR : err.code;
 
 }
+
+export function formatDate(date: Date): string {
+
+    return `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getMilliseconds()}`;
+
+}
