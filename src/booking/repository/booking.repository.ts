@@ -101,7 +101,7 @@ export class BookingRepository extends Repository<BookingEntity> {
                     end: `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()} 23:59:59`
                 };
 
-                return { status: HttpStatus.OK, data: slot, message: 'OK' };
+                return { status: HttpStatus.OK, data: [slot], message: 'OK' };
             
             }
 
