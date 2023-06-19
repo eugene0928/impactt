@@ -5,6 +5,7 @@ import { BaseResponse } from "@utils/base.response";
 import { BookingEntity } from "../entities/booking.entity";
 import { ServiceExceptions } from "@utils/exceptions/service.expection";
 import { BookingDto } from "../dto/booking.dto";
+import { RoomAvailability } from "@utils/types";
 
 @Injectable()
 export class BookingService {
@@ -23,6 +24,20 @@ export class BookingService {
         } catch (err) {
 
             return ServiceExceptions.handle(err, BookingService.name, 'bookRoom');
+        
+        }
+    
+    }
+
+    async roomAvailability(roomId: number, date: Date): Promise<BaseResponse<RoomAvailability | RoomAvailability[]>> {
+
+        try {
+
+            return await this.bookingRepository.roomAvailability(roomId, date);
+        
+        } catch (err) {
+
+            return ServiceExceptions.handle(err, BookingService.name, 'roomAvailability');
         
         }
     
