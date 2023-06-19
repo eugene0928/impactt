@@ -17,7 +17,7 @@ import { NewRoomDto } from "../dto/new.room.dto";
 import { JwtGuard } from "../../auth/guard/jwt.guard";
 import { RoomQueryDto } from "../dto/room.query.dto";
 
-@Controller()
+@Controller('api')
 export class RoomController {
 
     constructor(private readonly roomService: RoomService) {}
