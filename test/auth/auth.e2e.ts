@@ -10,7 +10,7 @@ export const authTests = () => {
 
         let app: INestApplication;
 
-        beforeEach(async () => {
+        beforeAll(async () => {
 
             const moduleFixture: TestingModule = await Test.createTestingModule({
                 imports: [AppModule]
@@ -32,7 +32,7 @@ export const authTests = () => {
             const admin: LoginDto = { name: 'SuperAdmin' };
 
             return request(app.getHttpServer())
-                .post('/login')
+                .post('/api/login')
                 .send(admin)
                 .expect(200)
                 .expect(({ body }) => {
@@ -48,7 +48,7 @@ export const authTests = () => {
             const admin: LoginDto = { name: 'Admin' };
 
             return request(app.getHttpServer())
-                .post('/login')
+                .post('/api/login')
                 .send(admin)
                 .expect(404)
                 .expect(({ body }) => {

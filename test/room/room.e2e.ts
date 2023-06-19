@@ -11,7 +11,7 @@ export const roomE2e = () => {
 
         let app: INestApplication;
 
-        beforeEach(async () => {
+        beforeAll(async () => {
 
             const moduleFixture: TestingModule = await Test.createTestingModule({
                 imports: [AppModule]
@@ -28,20 +28,20 @@ export const roomE2e = () => {
 
         });
 
-        it('/rooms --> 200(GET)', () => {
+        it('/api/rooms --> 200(GET)', () => {
 
             return request(app.getHttpServer())
-                .get('/rooms?page=1&page_size=10')
+                .get('/api/rooms?page=1&page_size=10')
                 .expect(HttpStatus.OK);
 
         });
 
-        it('/rooms/:id --> 404(GET)', async () => {
+        it('/api/rooms/:id --> 404(GET)', async () => {
 
             const id = 999;
 
             return request(app.getHttpServer())
-                .post(`/rooms/${id}`)
+                .post(`/api/rooms/${id}`)
                 .expect(HttpStatus.NOT_FOUND);
         
         });
@@ -54,7 +54,7 @@ export const roomE2e = () => {
             beforeAll(async() => {
 
                 admin = await request(app.getHttpServer())
-                    .post('/login')
+                    .post('/api/login')
                     .send({ name: 'SuperAdmin' });
 
                 const roomDto: NewRoomDto = {
@@ -64,7 +64,7 @@ export const roomE2e = () => {
                 };
 
                 room = await request(app.getHttpServer())
-                    .post('/rooms')
+                    .post('/api/rooms')
                     .set({ Authorization: `Bearer ${admin.body.data}` })
                     .send(roomDto)
                     .expect(HttpStatus.CREATED);
@@ -74,7 +74,7 @@ export const roomE2e = () => {
             afterAll(async() => {
 
                 return request(app.getHttpServer())
-                    .delete(`/rooms/${room.body.id}`)
+                    .delete(`/api/rooms/${room.body.id}`)
                     .set({ Authorization: `Bearer ${admin.body.data}` })
                     .expect(HttpStatus.OK);
 
@@ -83,7 +83,7 @@ export const roomE2e = () => {
             it('/rooms/:id --> 200(GET)', async () => {
 
                 return request(app.getHttpServer())
-                    .get(`/rooms/${room.body.id}`)
+                    .get(`/api/rooms/${room.body.id}`)
                     .expect(HttpStatus.OK);
 
             });
