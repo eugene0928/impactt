@@ -48,7 +48,7 @@ export class BookingRepository extends Repository<BookingEntity> {
             }
 
             const newUser = await UserEntity.create({
-                name: dto.name
+                name: dto.resident.name
             }).save();
 
             const newBookingEntity = await this.create({

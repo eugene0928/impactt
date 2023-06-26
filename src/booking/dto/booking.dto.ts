@@ -4,7 +4,7 @@ import { Transform } from "class-transformer";
 export class BookingDto {
 
     @IsNotEmpty()
-        name: string;
+        resident: {name: string};
 
     @IsNotEmpty()
     @Transform(data => {
