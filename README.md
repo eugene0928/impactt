@@ -30,6 +30,8 @@ npm build
 npm run db:seed
 ```
 
+During creation of rooms `request` should be sent with `Beaerer {yourToken}` auth token 
+
 ### Now you can start the application with the following script:
 ```shell
 npm start
