@@ -1,5 +1,5 @@
 import { CustomRepository } from "@dec/typeorm-ex.decorator";
-import { LessThanOrEqual, MoreThanOrEqual, Repository } from "typeorm";
+import { LessThanOrEqual, MoreThan, Repository } from "typeorm";
 import { BookingEntity } from "../entities/booking.entity";
 import { BaseResponse } from "@utils/base.response";
 import { DbExceptions } from "@utils/exceptions/dbException";
@@ -10,7 +10,6 @@ import { UserEntity } from "@user/entities/user.entity";
 import { RoomAvailability } from "@utils/types";
 import { RoomEntity } from "../../room/entities/room.entity";
 import { formatDate } from "@utils/helper";
-import { format } from 'date-fns';
 
 @CustomRepository(BookingEntity)
 export class BookingRepository extends Repository<BookingEntity> {
@@ -34,7 +33,7 @@ export class BookingRepository extends Repository<BookingEntity> {
                 where: {
                     room: { id: roomId },
                     start: LessThanOrEqual(dto.end),
-                    end: MoreThanOrEqual(dto.start)
+                    end: MoreThan(dto.start)
                 },
                 relations: {
                     room: true
@@ -90,7 +89,7 @@ export class BookingRepository extends Repository<BookingEntity> {
 
             const bookedRoomEntities = await this.createQueryBuilder('booking')
                 .where(`booking.roomId = :roomId`, { roomId })
-                .andWhere(`date_trunc('second', booking.createdAt) :: Date = :date`, { date: format(date, 'yyyy-MM-dd') })
+                .andWhere(`date_trunc('second', booking.start) :: Date = :date`, { date })
                 .orderBy('booking.start')
                 .getMany();
 
@@ -112,7 +111,11 @@ export class BookingRepository extends Repository<BookingEntity> {
                     end: formatDate(new Date(currentStartDate.getTime() + this.calculateDates(bookedRoomEntities[i].start, currentStartDate)))
                 };
 
-                freeSlots.push(slot);
+                if(slot.start !== slot.end) {
+
+                    freeSlots.push(slot);
+
+                }
 
                 currentStartDate = bookedRoomEntities[i].end;
             
@@ -122,7 +125,7 @@ export class BookingRepository extends Repository<BookingEntity> {
 
                 const slot = {
                     start: formatDate(currentStartDate),
-                    end: `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()} 23:59:59`
+                    end: `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}-${date.getFullYear()} 23:59:59`
                 };
 
                 freeSlots.push(slot);
