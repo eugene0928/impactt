@@ -2,6 +2,7 @@ import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import { bcryptSaltOrRounds } from './constants';
 import { HttpStatus, Logger } from '@nestjs/common';
+import { format } from "date-fns";
 
 const logger = new Logger('Helper');
 export const jwtHelper = {
@@ -60,6 +61,20 @@ export function getStatusCode(err) {
 
 export function formatDate(date: Date): string {
 
-    return `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getMilliseconds()}`;
+    return `${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}-${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getMilliseconds().toString().padStart(2, '0')}`;
+
+}
+
+export function extractDate(date: string): Date {
+
+    if(isNaN(Date.parse(date))) {
+
+        const [day, month, year] = date.split('-');
+        return new Date(+year, +month-1, +day);
+
+    }
+
+    const time = new Date(date);
+    return new Date(time.getFullYear(), time.getMonth(), time.getDate());
 
 }
