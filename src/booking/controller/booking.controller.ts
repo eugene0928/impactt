@@ -13,6 +13,7 @@ import {
 import { BookingService } from "../service/booking.service";
 import { BookingDto } from "../dto/booking.dto";
 import { Response } from "express";
+import { extractDate } from "@utils/helper";
 
 @Controller('api')
 export class BookingController {
@@ -38,7 +39,7 @@ export class BookingController {
     @Get('/rooms/:id/availability')
     async roomAvailability(@Param('id', ParseIntPipe) id: number, @Res() res: Response, @Query('date', new DefaultValuePipe(new Date().toISOString())) date: string) {
 
-        const response = await this.bookingService.roomAvailability(id, new Date(date));
+        const response = await this.bookingService.roomAvailability(id, extractDate(date));
         if(response.status === HttpStatus.OK) {
 
             res.status(response.status).json(response.data);
