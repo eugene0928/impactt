@@ -37,7 +37,8 @@
     "postgres": "^3.3.5",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.3.16"
+    "typeorm": "^0.3.16",
+    "webpack": "^5.90.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
